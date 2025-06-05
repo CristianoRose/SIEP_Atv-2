@@ -33,10 +33,8 @@ df = load_data()
 
 # Título principal
 st.title("🏠 Dashboard de Análise Imobiliária")
-st.markdown("""
-Este dashboard interativo permite realizar análises estatísticas avançadas no conjunto de dados Ames Housing.
-Explore os dados, execute análises ANOVA e modelos de Regressão Linear para entender os fatores que influenciam os preços dos imóveis.
-""")
+st.markdown("Este dashboard interativo permite realizar análises estatísticas avançadas no conjunto de dados Ames Housing.")
+st.markdown("Explore os dados, execute análises ANOVA e modelos de Regressão Linear para entender os fatores que influenciam os preços dos imóveis.")
 
 # Abas principais
 tab1, tab2, tab3 = st.tabs(["📊 Visão Geral dos Dados", "📈 Análise ANOVA", "🔍 Regressão Linear"])
