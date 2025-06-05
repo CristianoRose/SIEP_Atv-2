@@ -230,7 +230,13 @@ with tab2:
                     st.markdown("**Verificação dos Pressupostos:**")
                     
                     # Ajustar modelo OLS para obter resíduos
-                    modelo = sm.OLS.from_formula(f'saleprice ~ C({var})', data=df_var).fit()
+                    # Criar variáveis dummies para a variável categórica
+                    df_var_dummies = pd.get_dummies(df_var[var], drop_first=True, dtype=float)
+                    X = df_var_dummies.astype(float)
+                    X = sm.add_constant(X)
+                    y = df_var['saleprice'].astype(float)
+                    
+                    modelo = sm.OLS(y, X).fit()
                     residuos = modelo.resid
                     
                     # Teste de Shapiro-Wilk para normalidade
@@ -372,7 +378,7 @@ with tab3:
                 
                 # Criar variáveis dummies para variáveis categóricas
                 if selected_categorical:
-                    df_model = pd.get_dummies(df_model, columns=selected_categorical, drop_first=True)
+                    df_model = pd.get_dummies(df_model, columns=selected_categorical, drop_first=True, dtype=float)
                 
                 # Aplicar transformações logarítmicas se selecionado
                 if transform_y:
@@ -400,9 +406,9 @@ with tab3:
                     st.error("Não há variáveis explicativas válidas após o processamento.")
                 else:
                     # Preparar X e y para o modelo
-                    X = df_model[X_vars]
+                    X = df_model[X_vars].astype(float)
                     X = sm.add_constant(X)
-                    y = df_model[y_var]
+                    y = df_model[y_var].astype(float)
                     
                     # Ajustar o modelo
                     model = sm.OLS(y, X).fit()
